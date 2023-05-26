@@ -1,0 +1,41 @@
+{
+    "name": "termyn/symfony-bundle",
+    "description": "Integration of the `termyn` toolkit into Symfony 5<",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Edo Barnas",
+            "email": "iam@edobarnas.com"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Termyn\\Symfony\\Bundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Termyn\\Symfony\\Bundle\\Test\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^8.2",
+        "termyn/cqrs": "dev-main",
+        "termyn/date-time": "dev-main",
+        "termyn/ddd": "dev-master",
+        "termyn/id": "dev-main",
+        "termyn/mesh": "dev-main",
+        "termyn/money": "dev-main",
+        "symfony/framework-bundle": "5.*|6.*"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "1.10.*",
+        "phpstan/phpstan-phpunit": "1.3.*",
+        "phpunit/phpunit": "10.1.*",
+        "symplify/easy-coding-standard": "11.3.*"
+    }
+}
