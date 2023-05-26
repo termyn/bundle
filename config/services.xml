@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults autowire="true" autoconfigure="false" public="false" />
+
+        <instanceof id="Symfony\Component\HttpKernel\Controller\ValueResolverInterface" autowire="true">
+            <tag name="controller.argument_value_resolver" priority="256" />
+        </instanceof>
+
+        <!-- Cqrs -->
+
+        <service id="Termyn\Cqrs\Messaging\Messenger\Middleware\AckHandledCommandMiddleware"/>
+        <service id="Termyn\Cqrs\Messaging\Messenger\Middleware\AckSentCommandMiddleware"/>
+        <service id="Termyn\Cqrs\Messaging\Messenger\Middleware\ResolveHandledQueryResultMiddleware"/>
+        <service id="Termyn\Cqrs\Messaging\Messenger\Middleware\ValidateMessageMiddleware"/>
+
+        <service id="Termyn\Cqrs\Validation\MessageValidator" alias="Termyn\Cqrs\Validation\Validator\SymfonyMessageValidator"/>
+        <service id="Termyn\Cqrs\Validation\Validator\SymfonyMessageValidator"/>
+
+        <service id="Termyn\Cqrs\Messaging\CommandBus"
+                 class="Termyn\Cqrs\Messaging\Messenger\SymfonyMessengerCommandBus"
+                 autowire="false">
+            <argument type="service" id="termyn.cqrs.command_bus"/>
+        </service>
+
+        <service id="Termyn\Cqrs\Messaging\QueryBus"
+                 class="Termyn\Cqrs\Messaging\Messenger\SymfonyMessengerQueryBus"
+                 autowire="false">
+            <argument type="service" id="termyn.cqrs.query_bus"/>
+        </service>
+
+        <!-- Clock -->
+
+        <service id="Termyn\DateTime\Clock" alias="Termyn\DateTime\Clock\System\SystemClock"/>
+        <service id="Termyn\DateTime\Clock\System\SystemClock"/>
+
+        <service id="Termyn\DateTime\Clock\AdjustableClock" alias="Termyn\DateTime\Clock\System\SystemAdjustableClock"/>
+        <service id="Termyn\DateTime\Clock\System\SystemAdjustableClock"/>
+
+        <!-- Ddd -->
+
+        <service id="Termyn\Ddd\Messaging\DomainEventBus"
+                 class="Termyn\Ddd\Messaging\Messenger\SymfonyMessengerDomainEventBus"
+                 autowire="false">
+            <argument type="service" id="termyn.ddd.domain_event_bus"/>
+        </service>
+
+        <!-- Id -->
+
+        <service id="Termyn\Uuid\UuidValidator" alias="Termyn\Uuid\RegexUuidValidator"/>
+        <service id="Termyn\Uuid\RegexUuidValidator"/>
+
+        <service id="Termyn\Uuid\UuidGenerator" alias="Termyn\Uuid\Symfony\SymfonyRandomUuidGenerator"/>
+        <service id="Termyn\Uuid\Symfony\SymfonyRandomUuidGenerator"/>
+
+        <service id="Termyn\Uuid\UuidFactory" alias="Termyn\Uuid\Symfony\SymfonyUuidFactory"/>
+        <service id="Termyn\Uuid\Symfony\SymfonyUuidFactory"/>
+
+        <service id="Termyn\Uuid\UuidNamedFactory" alias="Termyn\Uuid\Symfony\SymfonyNamedUuidFactory"/>
+        <service id="Termyn\Uuid\Symfony\SymfonyNamedUuidFactory"/>
+
+        <service id="Termyn\Bundle\ValueResolver\RequiredUuidValueResolver"/>
+        <service id="Termyn\Bundle\ValueResolver\NullableUuidValueResolver"/>
+        <service id="Termyn\Bundle\ValueResolver\InstantValueResolver"/>
+
+        <!-- Mesh -->
+
+        <service id="Termyn\Mesh\Messaging\IntegrationEventBus"
+                 class="Termyn\Mesh\Messaging\Messenger\SymfonyMessengerIntegrationEventBus"
+                 autowire="false">
+            <argument type="service" id="termyn.mesh.integration_event_bus"/>
+        </service>
+    </services>
+</container>
