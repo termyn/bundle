@@ -16,7 +16,8 @@
         <service id="Termyn\Cqrs\Messaging\Messenger\Middleware\AckHandledCommandMiddleware"/>
         <service id="Termyn\Cqrs\Messaging\Messenger\Middleware\AckSentCommandMiddleware"/>
         <service id="Termyn\Cqrs\Messaging\Messenger\Middleware\ResolveHandledQueryResultMiddleware"/>
-        <service id="Termyn\Cqrs\Messaging\Messenger\Middleware\ValidateMessageMiddleware"/>
+        <service id="Termyn\Cqrs\Messaging\Messenger\Middleware\ValidateCommandMiddleware"/>
+        <service id="Termyn\Cqrs\Messaging\Messenger\Middleware\ValidateQueryMiddleware"/>
 
         <service id="Termyn\Cqrs\Validation\MessageValidator" alias="Termyn\Cqrs\Validation\Validator\SymfonyMessageValidator"/>
         <service id="Termyn\Cqrs\Validation\Validator\SymfonyMessageValidator"/>

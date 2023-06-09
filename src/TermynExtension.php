@@ -15,7 +15,8 @@ use Termyn\Cqrs\CommandHandler;
 use Termyn\Cqrs\Messaging\Messenger\Middleware\AckHandledCommandMiddleware;
 use Termyn\Cqrs\Messaging\Messenger\Middleware\AckSentCommandMiddleware;
 use Termyn\Cqrs\Messaging\Messenger\Middleware\ResolveHandledQueryResultMiddleware;
-use Termyn\Cqrs\Messaging\Messenger\Middleware\ValidateMessageMiddleware;
+use Termyn\Cqrs\Messaging\Messenger\Middleware\ValidateCommandMiddleware;
+use Termyn\Cqrs\Messaging\Messenger\Middleware\ValidateQueryMiddleware;
 use Termyn\Cqrs\QueryHandler;
 use Termyn\Ddd\DomainEventHandler;
 use Termyn\Mesh\IntegrationEventHandler;
@@ -32,7 +33,7 @@ final class TermynExtension extends Extension implements ExtensionInterface, Pre
                 'allow_no_senders' => true,
             ],
             'middleware' => [
-                ValidateMessageMiddleware::class,
+                ValidateCommandMiddleware::class,
                 AckHandledCommandMiddleware::class,
                 AckSentCommandMiddleware::class,
             ],
@@ -44,7 +45,7 @@ final class TermynExtension extends Extension implements ExtensionInterface, Pre
                 'allow_no_senders' => true,
             ],
             'middleware' => [
-                ValidateMessageMiddleware::class,
+                ValidateQueryMiddleware::class,
                 ResolveHandledQueryResultMiddleware::class,
             ],
         ],
