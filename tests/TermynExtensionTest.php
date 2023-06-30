@@ -13,9 +13,8 @@ use Termyn\Cqrs\Messaging\CommandBus;
 use Termyn\Cqrs\Messaging\QueryBus;
 use Termyn\Cqrs\QueryHandler;
 use Termyn\Ddd\DomainEventHandler;
-use Termyn\Ddd\Messaging\DomainEventBus;
-use Termyn\Mesh\IntegrationEventHandler;
-use Termyn\Mesh\Messaging\IntegrationEventBus;
+use Termyn\EventHandler;
+use Termyn\Messaging\EventBus;
 use Termyn\Symfony\Bundle\TermynExtension;
 
 final class TermynExtensionTest extends TestCase
@@ -56,16 +55,13 @@ final class TermynExtensionTest extends TestCase
     {
         return [
             'command-bus' => [
-                'busId' => 'termyn.cqrs.command_bus',
+                'busId' => 'termyn.command_bus',
             ],
             'query-bus' => [
-                'busId' => 'termyn.cqrs.query_bus',
+                'busId' => 'termyn.query_bus',
             ],
-            'domain-event-bus' => [
-                'busId' => 'termyn.ddd.domain_event_bus',
-            ],
-            'integration-event-bus' => [
-                'busId' => 'termyn.mesh.integration_event_bus',
+            'event-bus' => [
+                'busId' => 'termyn.event_bus',
             ],
         ];
     }
@@ -99,36 +95,36 @@ final class TermynExtensionTest extends TestCase
             'command-handler' => [
                 'id' => CommandHandler::class,
                 'tags' => [
-                    'termyn.cqrs.command_handler' => [],
+                    'termyn.command_handler' => [],
                     'messenger.message_handler' => [
-                        'bus' => 'termyn.cqrs.command_bus',
+                        'bus' => 'termyn.command_bus',
                     ],
                 ],
             ],
             'query-handler' => [
                 'id' => QueryHandler::class,
                 'tags' => [
-                    'termyn.cqrs.query_handler' => [],
+                    'termyn.query_handler' => [],
                     'messenger.message_handler' => [
-                        'bus' => 'termyn.cqrs.query_bus',
+                        'bus' => 'termyn.query_bus',
+                    ],
+                ],
+            ],
+            'event-handler' => [
+                'id' => EventHandler::class,
+                'tags' => [
+                    'termyn.event_handler' => [],
+                    'messenger.message_handler' => [
+                        'bus' => 'termyn.event_bus',
                     ],
                 ],
             ],
             'domain-event-handler' => [
                 'id' => DomainEventHandler::class,
                 'tags' => [
-                    'termyn.ddd.domain_event_handler' => [],
+                    'termyn.domain_event_handler' => [],
                     'messenger.message_handler' => [
-                        'bus' => 'termyn.ddd.domain_event_bus',
-                    ],
-                ],
-            ],
-            'integration-event-handler' => [
-                'id' => IntegrationEventHandler::class,
-                'tags' => [
-                    'termyn.mesh.integration_event_handler' => [],
-                    'messenger.message_handler' => [
-                        'bus' => 'termyn.mesh.integration_event_bus',
+                        'bus' => 'termyn.event_bus',
                     ],
                 ],
             ],
@@ -156,11 +152,8 @@ final class TermynExtensionTest extends TestCase
             'query-bus' => [
                 'serviceId' => QueryBus::class,
             ],
-            'domain-event-bus' => [
-                'serviceId' => DomainEventBus::class,
-            ],
-            'integration-event-bus' => [
-                'serviceId' => IntegrationEventBus::class,
+            'event-bus' => [
+                'serviceId' => EventBus::class,
             ],
         ];
     }

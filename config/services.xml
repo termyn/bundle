@@ -25,13 +25,13 @@
         <service id="Termyn\Cqrs\Messaging\CommandBus"
                  class="Termyn\Cqrs\Messaging\Messenger\SymfonyMessengerCommandBus"
                  autowire="false">
-            <argument type="service" id="termyn.cqrs.command_bus"/>
+            <argument type="service" id="termyn.command_bus"/>
         </service>
 
         <service id="Termyn\Cqrs\Messaging\QueryBus"
                  class="Termyn\Cqrs\Messaging\Messenger\SymfonyMessengerQueryBus"
                  autowire="false">
-            <argument type="service" id="termyn.cqrs.query_bus"/>
+            <argument type="service" id="termyn.query_bus"/>
         </service>
 
         <!-- Clock -->
@@ -42,12 +42,12 @@
         <service id="Termyn\DateTime\Clock\AdjustableClock" alias="Termyn\DateTime\Clock\System\SystemAdjustableClock"/>
         <service id="Termyn\DateTime\Clock\System\SystemAdjustableClock"/>
 
-        <!-- Ddd -->
+        <!-- Event -->
 
-        <service id="Termyn\Ddd\Messaging\DomainEventBus"
-                 class="Termyn\Ddd\Messaging\Messenger\SymfonyMessengerDomainEventBus"
+        <service id="Termyn\Messaging\EventBus"
+                 class="Termyn\Messaging\Messenger\SymfonyMessengerEventBus"
                  autowire="false">
-            <argument type="service" id="termyn.ddd.domain_event_bus"/>
+            <argument type="service" id="termyn.event_bus"/>
         </service>
 
         <!-- Id -->
@@ -64,16 +64,8 @@
         <service id="Termyn\Uuid\UuidNamedFactory" alias="Termyn\Uuid\Symfony\SymfonyNamedUuidFactory"/>
         <service id="Termyn\Uuid\Symfony\SymfonyNamedUuidFactory"/>
 
-        <service id="Termyn\Symfony\Bundle\ValueResolver\RequiredUuidValueResolver"/>
-        <service id="Termyn\Symfony\Bundle\ValueResolver\NullableUuidValueResolver"/>
-        <service id="Termyn\Symfony\Bundle\ValueResolver\InstantValueResolver"/>
-
-        <!-- Mesh -->
-
-        <service id="Termyn\Mesh\Messaging\IntegrationEventBus"
-                 class="Termyn\Mesh\Messaging\Messenger\SymfonyMessengerIntegrationEventBus"
-                 autowire="false">
-            <argument type="service" id="termyn.mesh.integration_event_bus"/>
-        </service>
+        <service id="Termyn\Bundle\ValueResolver\RequiredUuidValueResolver"/>
+        <service id="Termyn\Bundle\ValueResolver\NullableUuidValueResolver"/>
+        <service id="Termyn\Bundle\ValueResolver\InstantValueResolver"/>
     </services>
 </container>

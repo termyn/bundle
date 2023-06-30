@@ -19,14 +19,14 @@ use Termyn\Cqrs\Messaging\Messenger\Middleware\ValidateCommandMiddleware;
 use Termyn\Cqrs\Messaging\Messenger\Middleware\ValidateQueryMiddleware;
 use Termyn\Cqrs\QueryHandler;
 use Termyn\Ddd\DomainEventHandler;
-use Termyn\Mesh\IntegrationEventHandler;
+use Termyn\EventHandler;
 
 final class TermynExtension extends Extension implements ExtensionInterface, PrependExtensionInterface
 {
     private FileLocator $fileLocator;
 
     private array $buses = [
-        'termyn.cqrs.command_bus' => [
+        'termyn.command_bus' => [
             'default_middleware' => [
                 'enabled' => true,
                 'allow_no_handlers' => false,
@@ -38,7 +38,7 @@ final class TermynExtension extends Extension implements ExtensionInterface, Pre
                 AckSentCommandMiddleware::class,
             ],
         ],
-        'termyn.cqrs.query_bus' => [
+        'termyn.query_bus' => [
             'default_middleware' => [
                 'enabled' => true,
                 'allow_no_handlers' => false,
@@ -49,14 +49,7 @@ final class TermynExtension extends Extension implements ExtensionInterface, Pre
                 ResolveHandledQueryResultMiddleware::class,
             ],
         ],
-        'termyn.ddd.domain_event_bus' => [
-            'default_middleware' => [
-                'enabled' => true,
-                'allow_no_handlers' => true,
-                'allow_no_senders' => true,
-            ],
-        ],
-        'termyn.mesh.integration_event_bus' => [
+        'termyn.event_bus' => [
             'default_middleware' => [
                 'enabled' => true,
                 'allow_no_handlers' => true,
@@ -114,27 +107,27 @@ final class TermynExtension extends Extension implements ExtensionInterface, Pre
     private function registerHandlersForAutoconfiguration(ContainerBuilder $container): void
     {
         $container->registerForAutoconfiguration(CommandHandler::class)
-            ->addTag('termyn.cqrs.command_handler')
+            ->addTag('termyn.command_handler')
             ->addTag('messenger.message_handler', [
-                'bus' => 'termyn.cqrs.command_bus',
+                'bus' => 'termyn.command_bus',
             ]);
 
         $container->registerForAutoconfiguration(QueryHandler::class)
-            ->addTag('termyn.cqrs.query_handler')
+            ->addTag('termyn.query_handler')
             ->addTag('messenger.message_handler', [
-                'bus' => 'termyn.cqrs.query_bus',
+                'bus' => 'termyn.query_bus',
+            ]);
+
+        $container->registerForAutoconfiguration(EventHandler::class)
+            ->addTag('termyn.event_handler')
+            ->addTag('messenger.message_handler', [
+                'bus' => 'termyn.event_bus',
             ]);
 
         $container->registerForAutoconfiguration(DomainEventHandler::class)
-            ->addTag('termyn.ddd.domain_event_handler')
+            ->addTag('termyn.domain_event_handler')
             ->addTag('messenger.message_handler', [
-                'bus' => 'termyn.ddd.domain_event_bus',
-            ]);
-
-        $container->registerForAutoconfiguration(IntegrationEventHandler::class)
-            ->addTag('termyn.mesh.integration_event_handler')
-            ->addTag('messenger.message_handler', [
-                'bus' => 'termyn.mesh.integration_event_bus',
+                'bus' => 'termyn.event_bus',
             ]);
     }
 }
