@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Termyn\Symfony\Bundle\ValueResolver;
 
+use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface as ValueResolver;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Termyn\Uuid;
 use Termyn\Uuid\UuidFactory;
 use Termyn\Uuid\UuidValidator;
@@ -30,7 +30,7 @@ final readonly class RequiredUuidValueResolver implements ValueResolver
 
         $parameter = sprintf('%s', $request->get($argument->getName()));
         if (! $this->isValidUuid($parameter)) {
-            throw new NotFoundHttpException(
+            throw new InvalidArgumentException(
                 sprintf('The uid for the "%s" parameter is invalid (%s).', $argument->getName(), $parameter)
             );
         }
