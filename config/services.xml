@@ -26,12 +26,16 @@
                  class="Termyn\Cqrs\Messaging\Messenger\SymfonyMessengerCommandBus"
                  autowire="false">
             <argument type="service" id="termyn.command_bus"/>
+            <argument type="service" id="Termyn\Uuid\UuidGenerator"/>
+            <argument type="service" id="Termyn\DateTime\Clock"/>
         </service>
 
         <service id="Termyn\Cqrs\Messaging\QueryBus"
                  class="Termyn\Cqrs\Messaging\Messenger\SymfonyMessengerQueryBus"
                  autowire="false">
             <argument type="service" id="termyn.query_bus"/>
+            <argument type="service" id="Termyn\Uuid\UuidGenerator"/>
+            <argument type="service" id="Termyn\DateTime\Clock"/>
         </service>
 
         <!-- Clock -->

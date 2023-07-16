@@ -24,7 +24,7 @@
     },
     "require": {
         "php": "^8.2",
-        "termyn/cqrs": "0.2.*",
+        "termyn/cqrs": "0.3.*",
         "termyn/date-time": "0.1.*",
         "termyn/ddd": "0.2.*",
         "termyn/id": "0.1.*",
