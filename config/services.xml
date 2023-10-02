@@ -68,8 +68,8 @@
         <service id="Termyn\Uuid\UuidNamedFactory" alias="Termyn\Uuid\Symfony\SymfonyNamedUuidFactory"/>
         <service id="Termyn\Uuid\Symfony\SymfonyNamedUuidFactory"/>
 
-        <service id="Termyn\Bundle\ValueResolver\RequiredUuidValueResolver"/>
-        <service id="Termyn\Bundle\ValueResolver\NullableUuidValueResolver"/>
-        <service id="Termyn\Bundle\ValueResolver\InstantValueResolver"/>
+        <service id="Termyn\Symfony\Bundle\ValueResolver\RequiredUuidValueResolver"/>
+        <service id="Termyn\Symfony\Bundle\ValueResolver\NullableUuidValueResolver"/>
+        <service id="Termyn\Symfony\Bundle\ValueResolver\InstantValueResolver"/>
     </services>
 </container>
