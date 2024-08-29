@@ -29,7 +29,7 @@
         "termyn/ddd": "0.2.*",
         "termyn/id": "0.1.*",
         "termyn/event": "0.1.*",
-        "termyn/money": "dev-main",
+        "termyn/money": "0.1.*",
         "symfony/framework-bundle": "^4.3|5.*|6.*|7.*"
     },
     "require-dev": {
